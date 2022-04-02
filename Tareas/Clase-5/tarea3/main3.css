@@ -1,0 +1,28 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+form {
+    display: flex;
+}
+
+label {
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+}
+
+#calcular-tiempo-total {
+    padding: 10px;
+    margin-left: 500px;
+    margin-top: 40px;
+    background: lightblue;
+}
+
+#strong {
+    margin-left: 500px;
+    margin-top: 40px;
+    font-size: 20px;
+}
