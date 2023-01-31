@@ -20,66 +20,72 @@
 // Si no entendemos la respuesta, le decimos que no entendimos la respuesta.
 // Punto bonus: SI, NO, Si, No, si, no.
 
-function tarea() {
-    tareaCompararNombres();
-    tareaCompararEdades();
-    tareaEntradaAlBar();
-}
-
-function tareaCompararNombres() {
+function compararNombres() {
     const MI_NOMBRE = "francisco";
-    const NOMBRE_MI_GATO = "nemo";
+    const NOMBRE_GATO = "nemo";
 
-    const nombreUsuario = prompt("Como te llamas?");
-    const nombreUsuarioMinusculas = nombreUsuario.toLowerCase();
+    let nombreUsuario = (prompt("Como te llamas?") || "").toLowerCase();
 
-    if (MI_NOMBRE === nombreUsuarioMinusculas) {
+    if (MI_NOMBRE === nombreUsuario) {
         alert(`Bienvenido Tocayo! Yo también me llamo ${MI_NOMBRE}`);
-    } else if (NOMBRE_MI_GATO === nombreUsuarioMinusculas) {
-        alert(`Te llamas igual que mi gato ${NOMBRE_MI_GATO}`);
+    } else if (NOMBRE_GATO === nombreUsuario) {
+        alert(`Te llamas igual que mi gato ${NOMBRE_GATO}`);
+    } else if (nombreUsuario.trim().length === 0) {
+        alert("No ingresaste ningun nombre");
     } else {
         alert(`Bienvenido, ${nombreUsuario}`);
     }
 }
 
-function tareaCompararEdades() {
-    const MI_EDAD = 22;
-    const edadUsuario = Number(prompt("Cuantos años tenes?"));
+function compararEdades() {
+    const MI_EDAD = 23;
+    let edadUsuario = Number(prompt("Cuantos años tenes?"));
 
-    if (edadUsuario < MI_EDAD) {
-        alert("Soy mas grande que vos");
-    } else if (edadUsuario > MI_EDAD) {
+    if (edadUsuario === 0) {
+        edadUsuario = NaN;
+    }
+
+    if (edadUsuario > MI_EDAD) {
         alert("Sos mas grande que yo");
+    } else if (edadUsuario < MI_EDAD) {
+        alert("Sos mas chico que yo");
+    } else if (edadUsuario === MI_EDAD) {
+        alert(`Tenemos la misma edad, ${MI_EDAD}!`);
     } else {
-        alert("Tenemos la misma edad");
+        alert("No te entendí la respuesta.");
     }
 }
 
-function tareaEntradaAlBar() {
-    const EDAD_MINIMA_PARA_ENTRAR = 18;
-
-    const tieneDNI = preguntarDNIEnLaEntrada();
-
-    if (!tieneDNI) {
-        return;
-    }
-}
-
-function preguntarDNIEnLaEntrada() {
+function pedirDatosEnLaEntrada() {
     const RESPUESTA_SI = "si";
     const RESPUESTA_NO = "no";
 
-    const usuarioTieneDNI = prompt("Tenes DNI?").toLowerCase();
+    let usuarioTieneDNI = (prompt("Tenes dni (si - no)?") || "").toLowerCase();
 
     if (usuarioTieneDNI === RESPUESTA_SI) {
-        alert("Bienvenido al bar!")
-        return true;
+        validarEdadUsuario();
     } else if (usuarioTieneDNI === RESPUESTA_NO) {
         alert("Anda a buscar el DNI");
-        return false;
     } else {
-        alert("No te entendí");
-        return preguntarDNIEnLaEntrada();
+        alert("No entendí tu respuesta.");
+        pedirDatosEnLaEntrada();
     }
 }
-tarea();
+
+function validarEdadUsuario() {
+    const EDAD_MINIMA_ENTRADA = 18;
+    let edadUsuario = Number(prompt("Que edad tenes?")) || NaN;
+
+    if (edadUsuario >= EDAD_MINIMA_ENTRADA) {
+        alert("Bienvenido al bar!");
+    } else if (edadUsuario < EDAD_MINIMA_ENTRADA) {
+        alert("No podes entrar al bar!");
+    } else {
+        alert("No entendi la respuesta.");
+        validarEdadUsuario();
+    }
+}
+
+compararNombres();
+compararEdades();
+pedirDatosEnLaEntrada();
